@@ -3,7 +3,6 @@ import { v4 as uuid } from 'uuid';
 
 import { Car } from './interfaces/car.interface';
 import { CreateCarDto, UpdateCarDto } from './dto';
-import { throwError } from 'rxjs';
 
 @Injectable()
 export class CarsService {
@@ -75,5 +74,16 @@ export class CarsService {
         });
 
         return carDb;
+    }
+
+    delete(id: string) {
+        
+        const car = this.findOneById(id);
+        
+        this.carsData = this.carsData.filter((car) => car.id !== id);
+
+        return {
+            message: "deleted successfully"
+        };
     }
 }
