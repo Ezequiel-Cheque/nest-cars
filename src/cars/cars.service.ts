@@ -1,6 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Car } from './interfaces/car.interface';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
+
+import { Car } from './interfaces/car.interface';
+import { CreateCarDto, UpdateCarDto } from './dto';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class CarsService {
@@ -40,4 +43,37 @@ export class CarsService {
         return car;
     }
 
+    create(createCarDto: CreateCarDto) {
+        const newCar = {
+            id: uuid(),
+            ...createCarDto
+        }
+        this.carsData.push(newCar);
+
+        return newCar;
+    }
+
+    update(id: string, updateCar: UpdateCarDto) {
+
+        if ( updateCar.id && updateCar.id !== id )
+            throw new BadRequestException("The ids car are not validate");
+
+        let carDb = this.findOneById(id);
+
+        this.carsData = this.carsData.map((car) => {
+
+            if ( car.id == id ) {
+                carDb = {
+                    ...carDb,
+                    ...updateCar,
+                    id
+                }
+                return carDb
+            }
+
+            return car;
+        });
+
+        return carDb;
+    }
 }
