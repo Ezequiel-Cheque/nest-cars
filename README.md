@@ -8,3 +8,8 @@ Populate DB
  ```
   http://localhost:300/seed
  ```
+
+Documentation
+ ```
+  http://localhost:300/api
+ ```
