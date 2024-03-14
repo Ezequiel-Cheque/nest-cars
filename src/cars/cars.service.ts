@@ -8,26 +8,11 @@ import { CreateCarDto, UpdateCarDto } from './dto';
 export class CarsService {
 
     private carsData: Car[] = [
-        {
-            id: uuid(),
-            brand: "BMW",
-            model: "BMW Z4"
-        },
-        {
-            id: uuid(),
-            brand: "Volkswagen",
-            model: "Vento"
-        },
-        {
-            id: uuid(),
-            brand: "Ford",
-            model: "Fiesta"
-        },
-        {
-            id: uuid(),
-            brand: "Nissan",
-            model: "March"
-        }
+        // {
+        //     id: uuid(),
+        //     brand: "BMW",
+        //     model: "BMW Z4"
+        // }
     ];
 
     findAll() {
@@ -86,4 +71,9 @@ export class CarsService {
             message: "deleted successfully"
         };
     }
+
+    fillCarsWithSeedData(cars: Car[]) {
+        this.carsData = cars;
+    }
+
 }
