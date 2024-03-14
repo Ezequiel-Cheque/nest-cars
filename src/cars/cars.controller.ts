@@ -1,7 +1,10 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { CreateCarDto, UpdateCarDto } from './dto';
+import { ApiBody } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Cars')
 @Controller('cars')
 export class CarsController {
 
@@ -20,6 +23,7 @@ export class CarsController {
   }
 
   @Post()
+  @ApiBody({ type: CreateCarDto })
   createCar( @Body() createCarDto: CreateCarDto ) {
     return this.carService.create(createCarDto);
   }
